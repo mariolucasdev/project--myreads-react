@@ -10,28 +10,30 @@ class BooksApp extends React.Component {
     books: []
   };
 
-  componentDidMount() {
+  getBooksAPI() {
     BooksAPI.getAll().then(books => this.setState({ books }));
+  }
+  componentDidMount() {
+    this.getBooksAPI();
   }
 
   updateBook = (book, shelf) => {
     BooksAPI.update(book, shelf);
-    alert(book, shelf);
+    this.getBooksAPI();
   };
 
   render() {
-    const rFilter = this.state.books.filter(b => b.shelf === 'read');
-    const wFilter = this.state.books.filter(b => b.shelf === 'wantToRead');
-    const cFilter = this.state.books.filter(
-      b => b.shelf === 'currentlyReading'
-    );
+    const { books } = this.state;
+    const rFilter = books.filter(b => b.shelf === 'read');
+    const wFilter = books.filter(b => b.shelf === 'wantToRead');
+    const cFilter = books.filter(b => b.shelf === 'currentlyReading');
 
     return (
       <div className="app">
         <Route
           exact
           path="/"
-          render={() => (
+          render={({ history }) => (
             <div className="list-books">
               <div className="list-books-title">
                 <h1>MyReads</h1>
@@ -41,17 +43,26 @@ class BooksApp extends React.Component {
                 <ListBooks
                   title="Currently Reading"
                   books={cFilter}
-                  onUpdateShelf={(b, s) => this.updateBook(b, s)}
+                  onUpdateShelf={(b, s) => {
+                    this.updateBook(b, s);
+                    history.push('/');
+                  }}
                 />
                 <ListBooks
                   title="Want to Read"
                   books={wFilter}
-                  onUpdateShelf={(b, s) => this.updateBook(b, s)}
+                  onUpdateShelf={(b, s) => {
+                    this.updateBook(b, s);
+                    history.push('/');
+                  }}
                 />
                 <ListBooks
                   title="Read"
                   books={rFilter}
-                  onUpdateShelf={(b, s) => this.updateBook(b, s)}
+                  onUpdateShelf={(b, s) => {
+                    this.updateBook(b, s);
+                    history.push('/');
+                  }}
                 />
               </div>
             </div>

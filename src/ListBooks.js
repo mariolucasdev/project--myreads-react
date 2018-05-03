@@ -5,7 +5,6 @@ export default class ListBooks extends Component {
   handleClick(book, evt) {
     this.props.onUpdateShelf(book, evt.target.value);
   }
-
   render() {
     return (
       <div>
@@ -49,7 +48,12 @@ export default class ListBooks extends Component {
                           >
                             Read
                           </option>
-                          <option value="none">None</option>
+                          <option
+                            value="none"
+                            onClick={evt => this.handleClick(b, evt)}
+                          >
+                            None
+                          </option>
                         </select>
                       </div>
                     </div>

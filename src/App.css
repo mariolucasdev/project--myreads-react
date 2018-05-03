@@ -45,7 +45,11 @@ body,
 .bookshelf-books {
   text-align: center;
 }
-
+.shelf-checked {
+  background-image: url('./icons/check.svg');
+  width: 20px;
+  padding: 20px;
+}
 .open-search {
   position: fixed;
   right: 25px;
