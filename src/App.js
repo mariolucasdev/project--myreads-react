@@ -7,22 +7,25 @@ import { Route } from 'react-router-dom';
 
 class BooksApp extends React.Component {
   state = {
-    books: [],
-    currently: [],
-    want: [],
-    read: []
+    books: []
   };
 
   componentDidMount() {
     BooksAPI.getAll().then(books => this.setState({ books }));
   }
 
-  updateBook(book, shelf) {
+  updateBook = (book, shelf) => {
     BooksAPI.update(book, shelf);
-  }
+    alert(book, shelf);
+  };
 
   render() {
     const rFilter = this.state.books.filter(b => b.shelf === 'read');
+    const wFilter = this.state.books.filter(b => b.shelf === 'wantToRead');
+    const cFilter = this.state.books.filter(
+      b => b.shelf === 'currentlyReading'
+    );
+
     return (
       <div className="app">
         <Route
@@ -37,18 +40,18 @@ class BooksApp extends React.Component {
               <div className="list-books-content">
                 <ListBooks
                   title="Currently Reading"
-                  books={this.state.want}
-                  onUpdateShelf={this.updateBook}
+                  books={cFilter}
+                  onUpdateShelf={(b, s) => this.updateBook(b, s)}
                 />
                 <ListBooks
                   title="Want to Read"
-                  books={this.state.want}
-                  onUpdateShelf={this.updateBook}
+                  books={wFilter}
+                  onUpdateShelf={(b, s) => this.updateBook(b, s)}
                 />
                 <ListBooks
                   title="Read"
                   books={rFilter}
-                  onUpdateShelf={this.updateBook}
+                  onUpdateShelf={(b, s) => this.updateBook(b, s)}
                 />
               </div>
             </div>

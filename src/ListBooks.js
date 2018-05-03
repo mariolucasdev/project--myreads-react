@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class ListBooks extends Component {
-  render() {
-    const { books, onUpdateShelf, title } = this.props;
+  handleClick(book, evt) {
+    this.props.onUpdateShelf(book, evt.target.value);
+  }
 
+  render() {
     return (
       <div>
         <div className="bookshelf">
-          <h2 className="bookshelf-title">{title}</h2>
+          <h2 className="bookshelf-title">{this.props.title}</h2>
 
           <div className="bookshelf-books">
             <ol className="books-grid">
-              {books.map(b => (
+              {this.props.books.map(b => (
                 <li key={b.id}>
                   <div className="book">
                     <div className="book-top">
@@ -30,14 +32,21 @@ export default class ListBooks extends Component {
                             Move to...
                           </option>
                           <option
-                            onClick={onUpdateShelf(b, 'currentlyReading')}
+                            value="currentlyReading"
+                            onClick={evt => this.handleClick(b, evt)}
                           >
                             Currently Reading
                           </option>
-                          <option onClick={onUpdateShelf(b, 'wantToRead')}>
+                          <option
+                            value="wantToRead"
+                            onClick={evt => this.handleClick(b, evt)}
+                          >
                             Want to Read
                           </option>
-                          <option onClick={onUpdateShelf(b, 'read')}>
+                          <option
+                            value="read"
+                            onClick={evt => this.handleClick(b, evt)}
+                          >
                             Read
                           </option>
                           <option value="none">None</option>
