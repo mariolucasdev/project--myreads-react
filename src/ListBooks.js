@@ -5,6 +5,7 @@ export default class ListBooks extends Component {
   handleClick(book, evt) {
     this.props.onUpdateShelf(book, evt.target.value);
   }
+
   render() {
     return (
       <div>
@@ -58,7 +59,9 @@ export default class ListBooks extends Component {
                       </div>
                     </div>
                     <div className="book-title">{b.title}</div>
-                    <div className="book-authors">{b.author}</div>
+                    <div className="book-authors">
+                      {b.authors.map(author => author)}
+                    </div>
                   </div>
                 </li>
               ))}

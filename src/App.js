@@ -1,11 +1,11 @@
 import React from 'react';
-import * as BooksAPI from './BooksAPI';
-import './App.css';
+import { Route } from 'react-router-dom';
 import ListBooks from './ListBooks';
 import SearchBooks from './SearchBooks';
-import { Route } from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
+import './App.css';
 
-class BooksApp extends React.Component {
+export default class BooksApp extends React.Component {
   state = {
     books: []
   };
@@ -23,12 +23,15 @@ class BooksApp extends React.Component {
     this.getBooks();
   };
 
-  render() {
-    const { books } = this.state;
-    const rFilter = books.filter(b => b.shelf === 'read');
-    const wFilter = books.filter(b => b.shelf === 'wantToRead');
-    const cFilter = books.filter(b => b.shelf === 'currentlyReading');
+  filter = booksState => this.state.books.filter(b => b.shelf === booksState);
 
+  categories = () => [
+    { title: 'Currently Reading', books: this.filter('currentlyReading') },
+    { title: 'Want to Read', books: this.filter('wantToRead') },
+    { title: 'Read', books: this.filter('read') }
+  ];
+
+  render() {
     return (
       <div className="app">
         <Route
@@ -41,30 +44,9 @@ class BooksApp extends React.Component {
               </div>
 
               <div className="list-books-content">
-                <ListBooks
-                  title="Currently Reading"
-                  books={cFilter}
-                  onUpdateShelf={(b, s) => {
-                    this.updateBook(b, s);
-                    history.push('/');
-                  }}
-                />
-                <ListBooks
-                  title="Want to Read"
-                  books={wFilter}
-                  onUpdateShelf={(b, s) => {
-                    this.updateBook(b, s);
-                    history.push('/');
-                  }}
-                />
-                <ListBooks
-                  title="Read"
-                  books={rFilter}
-                  onUpdateShelf={(b, s) => {
-                    this.updateBook(b, s);
-                    history.push('/');
-                  }}
-                />
+                {this.categories().map(c => (
+                  <ListBooks {...c} onUpdateShelf={this.updateBook} />
+                ))}
               </div>
             </div>
           )}
@@ -77,5 +59,3 @@ class BooksApp extends React.Component {
     );
   }
 }
-
-export default BooksApp;
