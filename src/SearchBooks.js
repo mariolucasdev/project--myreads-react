@@ -5,15 +5,39 @@ import ListBooks from './ListBooks';
 
 export default class SearchBooks extends Component {
   state = {
-    books: [],
-    query: ''
+    search: '',
+    searchBooks: [],
+    route: ''
+  };
+
+  searchBooks = value => {
+    if (value) {
+      BooksAPI.search(value.trim()).then(res => {
+        if (res && res.error) {
+          this.setState({ searchBooks: [] });
+        } else {
+          this.setState({ searchBooks: res });
+        }
+      });
+    }
   };
 
   handleChange = value => {
-    BooksAPI.search(value).then(res => this.setState({ books: res }));
+    this.setState({ search: value });
+    this.searchBooks(this.state.search);
+  };
+
+  handleClick = (book, evt) => {
+    this.props.onUpdateShelf(book, evt.target.value);
+  };
+
+  updateBook = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(this.props.getBooks);
   };
 
   render() {
+    const { search, searchBooks } = this.state;
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -24,14 +48,16 @@ export default class SearchBooks extends Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              value={this.state.search}
+              value={search}
               onChange={e => this.handleChange(e.target.value)}
             />
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">
-            <ListBooks books={this.state.books} />
+          <ol className="books-grind">
+            {search !== '' && (
+              <ListBooks books={searchBooks} onUpdateShelf={this.updateBook} />
+            )}
           </ol>
         </div>
       </div>
