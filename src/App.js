@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import ListBooks from './ListBooks';
 import SearchBooks from './SearchBooks';
 import * as BooksAPI from './BooksAPI';
@@ -45,15 +45,30 @@ export default class BooksApp extends React.Component {
 
               <div className="list-books-content">
                 {this.categories().map(c => (
-                  <ListBooks {...c} onUpdateShelf={this.updateBook} />
+                  <ListBooks
+                    key={c.title}
+                    {...c}
+                    onUpdateShelf={this.updateBook}
+                  />
                 ))}
+              </div>
+
+              <div className="open-search">
+                <Link to="/search">Add a book</Link>
               </div>
             </div>
           )}
         />
         <Route
           path="/search"
-          render={() => <SearchBooks books={this.state.books} />}
+          render={({ history }) => (
+            <SearchBooks
+              books={this.state.books}
+              onUpdateShelf={() => {
+                this.updateBook();
+              }}
+            />
+          )}
         />
       </div>
     );
