@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 export default class ListBooks extends Component {
   handleClick(book, evt) {
@@ -60,17 +59,13 @@ export default class ListBooks extends Component {
                     </div>
                     <div className="book-title">{b.title}</div>
                     <div className="book-authors">
-                      {b.authors.map(author => author)}
+                      {b.authors && b.authors.map(author => author)}
                     </div>
                   </div>
                 </li>
               ))}
             </ol>
           </div>
-        </div>
-
-        <div className="open-search">
-          <Link to="/search">Add a book</Link>
         </div>
       </div>
     );
