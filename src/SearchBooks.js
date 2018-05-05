@@ -55,7 +55,7 @@ export default class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grind">
-            {search !== '' && (
+            {search.trim() !== '' && (
               <ListBooks books={searchBooks} onUpdateShelf={this.updateBook} />
             )}
           </ol>
