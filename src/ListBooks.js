@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './ListBooks.css';
 
 export default class ListBooks extends Component {
-  handleClick(book, evt) {
-    this.props.onUpdateShelf(book, evt.target.value);
+  handleClick(book, shelf) {
+    this.props.onUpdateShelf(book, shelf);
   }
 
   render() {
@@ -17,7 +17,6 @@ export default class ListBooks extends Component {
               {this.props.books.map(b => (
                 <li key={b.id}>
                   <div className="book">
-                    {console.log(b)}
                     <div className="book-top">
                       <div
                         className="book-cover"
@@ -34,27 +33,21 @@ export default class ListBooks extends Component {
                             Move to...
                           </option>
                           <option
-                            value="currentlyReading"
-                            onClick={evt => this.handleClick(b, evt)}
+                            onClick={() =>
+                              this.handleClick(b, 'currentlyReading')
+                            }
                           >
                             Currently Reading
                           </option>
                           <option
-                            value="wantToRead"
-                            onClick={evt => this.handleClick(b, evt)}
+                            onClick={() => this.handleClick(b, 'wantToRead')}
                           >
                             Want to Read
                           </option>
-                          <option
-                            value="read"
-                            onClick={evt => this.handleClick(b, evt)}
-                          >
+                          <option onClick={() => this.handleClick(b, 'read')}>
                             Read
                           </option>
-                          <option
-                            value="none"
-                            onClick={evt => this.handleClick(b, evt)}
-                          >
+                          <option onClick={() => this.handleClick(b, 'none')}>
                             None
                           </option>
                         </select>
