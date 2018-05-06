@@ -17,13 +17,15 @@ export default class ListBooks extends Component {
               {this.props.books.map(b => (
                 <li key={b.id}>
                   <div className="book">
+                    {console.log(b)}
                     <div className="book-top">
                       <div
                         className="book-cover"
                         style={{
                           width: 128,
                           height: 193,
-                          backgroundImage: `url('${b.imageLinks.thumbnail}')`
+                          backgroundImage: `url('${b.imageLinks &&
+                            b.imageLinks.thumbnail}')`
                         }}
                       />
                       <div className="book-shelf-changer">
