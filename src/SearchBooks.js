@@ -6,8 +6,7 @@ import ListBooks from './ListBooks';
 export default class SearchBooks extends Component {
   state = {
     search: '',
-    searchBooks: [],
-    route: ''
+    searchBooks: []
   };
 
   searchBooks = value => {

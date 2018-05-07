@@ -43,6 +43,7 @@ export default class ListBooks extends Component {
                           </option>
                           {this.options.map(o => (
                             <option
+                              key={o.value}
                               value={o.value}
                               onClick={() => this.handleClick(b, o.value)}
                             >
