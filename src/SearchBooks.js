@@ -56,7 +56,9 @@ export default class SearchBooks extends Component {
           <ol className="books-grind">
             {search.trim() !== '' && (
               <ListBooks
-                title={`Resultado para "${this.state.search}"`}
+                title={`${this.state.searchBooks.length} resultado(s) para "${
+                  this.state.search
+                }"`}
                 books={searchBooks}
                 onUpdateShelf={this.updateBook}
               />
