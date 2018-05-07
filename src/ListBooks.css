@@ -1,7 +1,10 @@
 .bookshelf {
   padding: 0 10px 20px;
 }
-
+.book-cover {
+  background-position: center;
+  background-repeat: no-repeat;
+}
 @media (min-width: 600px) {
   .bookshelf {
     padding: 0 20px 40px;
@@ -13,9 +16,4 @@
 }
 .bookshelf-books {
   text-align: center;
-}
-.checked {
-  font-size: 10px;
-  color: green;
-  background-image: url('./icons/add.svg');
 }

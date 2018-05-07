@@ -29,8 +29,11 @@ export default class ListBooks extends Component {
                         style={{
                           width: 128,
                           height: 193,
-                          backgroundImage: `url('${b.imageLinks &&
-                            b.imageLinks.thumbnail}')`
+                          backgroundImage: `url('${
+                            b.imageLinks
+                              ? b.imageLinks.thumbnail
+                              : 'http://www.dcturbos.com.br/images/imagem-nao-disponivel.gif'
+                          }')`
                         }}
                       />
                       <div className="book-shelf-changer">
