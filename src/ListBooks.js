@@ -6,6 +6,12 @@ export default class ListBooks extends Component {
     this.props.onUpdateShelf(book, shelf);
   }
 
+  options = [
+    { title: 'Currently Reading', value: 'currentlyReading' },
+    { title: 'Want to Read', value: 'wantToRead' },
+    { title: 'Read', value: 'read' },
+    { title: 'None', value: 'none' }
+  ];
   render() {
     return (
       <div>
@@ -32,24 +38,18 @@ export default class ListBooks extends Component {
                           <option value="none" disabled>
                             Move to...
                           </option>
-                          <option
-                            onClick={() =>
-                              this.handleClick(b, 'currentlyReading')
-                            }
-                          >
-                            Currently Reading
-                          </option>
-                          <option
-                            onClick={() => this.handleClick(b, 'wantToRead')}
-                          >
-                            Want to Read
-                          </option>
-                          <option onClick={() => this.handleClick(b, 'read')}>
-                            Read
-                          </option>
-                          <option onClick={() => this.handleClick(b, 'none')}>
-                            None
-                          </option>
+                          {this.options.map(o => (
+                            <option
+                              value={o.value}
+                              onClick={() => this.handleClick(b, o.value)}
+                            >
+                              {o.value === b.shelf ? (
+                                <span>&#x2714; {o.title}</span>
+                              ) : (
+                                <span>{o.title}</span>
+                              )}
+                            </option>
+                          ))}
                         </select>
                       </div>
                     </div>
