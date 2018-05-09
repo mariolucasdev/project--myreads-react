@@ -36,7 +36,7 @@ export default class SearchBooks extends Component {
 
   render() {
     const { search, searchBooks } = this.state;
-
+    console.log(searchBooks);
     return (
       <div className="search-books">
         <div className="search-books-bar">
