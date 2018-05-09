@@ -71,6 +71,7 @@ export default class BooksApp extends React.Component {
             />
           )}
         />
+        <div>Teste</div>
       </div>
     );
   }
