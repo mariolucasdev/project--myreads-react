@@ -38,7 +38,7 @@ export default class BooksApp extends React.Component {
         <Route
           exact
           path="/"
-          render={({ history }) => (
+          render={() => (
             <div className="list-books">
               <div className="list-books-title">
                 <h1>MyReads</h1>
@@ -62,7 +62,7 @@ export default class BooksApp extends React.Component {
         />
         <Route
           path="/search"
-          render={({ history }) => (
+          render={() => (
             <SearchBooks
               books={this.state.books}
               onUpdateShelf={() => {
@@ -71,7 +71,6 @@ export default class BooksApp extends React.Component {
             />
           )}
         />
-        <div>Teste</div>
       </div>
     );
   }
