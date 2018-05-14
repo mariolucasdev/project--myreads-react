@@ -13,7 +13,7 @@ export default class SearchBooks extends Component {
     if (value) {
       BooksAPI.search(value.trim()).then(res => {
         if (res && res.error) {
-          this.setState({ searchBooks: [] });
+        this.setState({ searchBooks: [] });
         } else {
           this.setState({ searchBooks: res });
         }
@@ -41,6 +41,7 @@ export default class SearchBooks extends Component {
   render() {
     const { search, searchBooks } = this.state;
     const { books } = this.props;
+    
     this.filterBooks(this.state.searchBooks);
     return (
       <div className="search-books">
