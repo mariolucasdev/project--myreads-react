@@ -26,23 +26,16 @@ export default class SearchBooks extends Component {
     this.searchBooks(this.state.search);
   };
   
-  handleClick = (book, evt) => {
-    this.props.onUpdateShelf(book, evt.target.value);
+  handleClick = (book, shelf) => {
+    this.props.onUpdateShelf(book, shelf);
   };
   
-  updateBook = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(this.props.getBooks);
-  };
-  
-  filterBooks = (b) => {
-    let booksFiltred = b.map(b => b.shelf="none");
-  }
+  filterBooks = (b) => b.map(b => b.shelf="none");
   
   render() {
     const { search, searchBooks } = this.state;
-    const { books } = this.props;
     
-    this.filterBooks(this.state.searchBooks);
+    this.filterBooks(searchBooks);
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -62,9 +55,9 @@ export default class SearchBooks extends Component {
           <ol className="books-grind">
             {search.trim() !== '' && (
               <ListBooks
-                title={`${this.state.searchBooks.length} resultado(s) para "${this.state.search}"`}
+                title={`${searchBooks.length} resultado(s) para "${search}"`}
                 books={searchBooks}
-                onUpdateShelf={this.updateBook}
+                onUpdateShelf={this.handleClick}
               />
             )}
           </ol>

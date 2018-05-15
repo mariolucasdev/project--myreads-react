@@ -20,7 +20,7 @@ export default class BooksApp extends React.Component {
   };
 
   updateBook = (book, shelf) => {
-    BooksAPI.update(book, shelf);
+    BooksAPI.update(book, shelf).then(this.getBooks);
   };
 
   filter = booksState => this.state.books.filter(b => b.shelf === booksState);
@@ -32,8 +32,7 @@ export default class BooksApp extends React.Component {
   ];
 
   render() {
-
-    this.getBooks();
+    const { books } = this.state;
 
     return (
       <div className="app">
@@ -66,10 +65,8 @@ export default class BooksApp extends React.Component {
           path="/search"
           render={() => (
             <SearchBooks
-              books={this.state.books}
-              onUpdateShelf={() => {
-                this.updateBook();
-              }}
+              books={books}
+              onUpdateShelf={this.updateBook}
             />
           )}
         />
