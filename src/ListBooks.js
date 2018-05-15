@@ -32,12 +32,12 @@ export default class ListBooks extends Component {
                           backgroundImage: `url('${
                             b.imageLinks
                               ? b.imageLinks.thumbnail
-                              : 'http://www.dcturbos.com.br/images/imagem-nao-disponivel.gif'
+                              : ''
                           }')`
                         }}
                       />
                       <div className="book-shelf-changer">
-                        <select>
+                        <select value={b.shelf} onChange={e => this.handleClick(b, e.target.value)}>
                           <option value="none" disabled>
                             Move to...
                           </option>
@@ -45,10 +45,9 @@ export default class ListBooks extends Component {
                             <option
                               key={o.value}
                               value={o.value}
-                              onClick={() => this.handleClick(b, o.value)}
                             >
                               {o.value === b.shelf ? (
-                                <span>&#x2714; {o.title}</span>
+                                <span> &#x2714; {o.title} </span>
                               ) : (
                                 <span>{o.title}</span>
                               )}

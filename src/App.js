@@ -21,7 +21,6 @@ export default class BooksApp extends React.Component {
 
   updateBook = (book, shelf) => {
     BooksAPI.update(book, shelf);
-    this.getBooks();
   };
 
   filter = booksState => this.state.books.filter(b => b.shelf === booksState);
@@ -33,6 +32,9 @@ export default class BooksApp extends React.Component {
   ];
 
   render() {
+
+    this.getBooks();
+
     return (
       <div className="app">
         <Route
