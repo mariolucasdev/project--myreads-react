@@ -5,18 +5,19 @@ import ListBooks from './ListBooks';
 
 export default class SearchBooks extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      search: '',
-      searchBooks: []
-    };
+  state = {
+    search: '',
+    searchBooks: []
   }
   
+  // Metodo que faz a pesquisa de livros na API usando os termos passado pelo estado search
   searchBooks = value => {
     BooksAPI.search(value.trim())
+    // Promisse que retorna os dados vindos da API
       .then(res => {
+        // Tratamento de retorno para evitar erros no map a seguir
         if(res && !res.error){
+          // Constante que recebe um novo array com os dados de estados de livros alterado de acordo com os dados recebidos no props
           const booksResults = res.map(book => {
             let bookFind = this.props.books.find(b => b.id === book.id);
             if(bookFind){
@@ -26,16 +27,19 @@ export default class SearchBooks extends Component {
             }
             return book;
           });
+          // Alteração de estado do searchBooks agora recebendo os livros com seu respectivo shelf
           this.setState({ searchBooks : booksResults})
         }
     });
   };
   
+  // Método que captura a mudança do select para disparar a pesquisa
   handleChange = value => {
     this.setState({ search: value });
     this.searchBooks(this.state.search);
   };
   
+  // Método que recebe o clique par alteração de Shelf do livro
   handleClick = (book, shelf) => {
     this.props.onUpdateShelf(book, shelf);
   };
