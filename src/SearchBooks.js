@@ -4,21 +4,31 @@ import * as BooksAPI from './BooksAPI';
 import ListBooks from './ListBooks';
 
 export default class SearchBooks extends Component {
-  state = {
-    search: '',
-    searchBooks: []
-  };
 
+  constructor(props){
+    super(props);
+    this.state = {
+      search: '',
+      searchBooks: []
+    };
+  }
+  
   searchBooks = value => {
-    if (value) {
-      BooksAPI.search(value.trim()).then(res => {
-        if (res && res.error) {
-        this.setState({ searchBooks: [] });
-        } else {
-          this.setState({ searchBooks: res });
+    BooksAPI.search(value.trim())
+      .then(res => {
+        if(res){
+          const booksResults = res.map(book => {
+            let bookFind = this.props.books.find(b => b.id === book.id);
+            if(bookFind){
+              book.shelf = bookFind.shelf;
+            } else {
+              book.shelf = "none";
+            }
+            return book;
+          });
+          this.setState({ searchBooks : booksResults})
         }
-      });
-    }
+    });
   };
   
   handleChange = value => {
@@ -30,12 +40,9 @@ export default class SearchBooks extends Component {
     this.props.onUpdateShelf(book, shelf);
   };
   
-  filterBooks = (b) => b.map(b => b.shelf="none");
-  
   render() {
     const { search, searchBooks } = this.state;
     
-    this.filterBooks(searchBooks);
     return (
       <div className="search-books">
         <div className="search-books-bar">
