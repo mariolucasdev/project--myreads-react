@@ -16,7 +16,7 @@ export default class SearchBooks extends Component {
   searchBooks = value => {
     BooksAPI.search(value.trim())
       .then(res => {
-        if(res){
+        if(res && !res.error){
           const booksResults = res.map(book => {
             let bookFind = this.props.books.find(b => b.id === book.id);
             if(bookFind){
