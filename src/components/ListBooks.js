@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import './ListBooks.css';
 
 export default class ListBooks extends Component {
+
+  // Evento que é acionado ao selecionar uma opção para mover o livro de estante que dispara chamando uma função está no App.js que foi passar como prop para este componente filho
   handleClick(book, shelf) {
     this.props.onUpdateShelf(book, shelf);
   }
 
+  // Criado o objeto de opções para não ser necessário repitilo
   options = [
     { title: 'Currently Reading', value: 'currentlyReading' },
     { title: 'Want to Read', value: 'wantToRead' },
-    { title: 'Read', value: 'read' },
-    { title: 'None', value: 'none' }
+    { title: 'Read', value: 'read' }
   ];
   render() {
     return (
